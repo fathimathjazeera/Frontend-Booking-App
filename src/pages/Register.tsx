@@ -9,7 +9,9 @@ type RegisterFormData = {
     confirmPassword:string
 }
 
-    const {register, watch, handleSubmit}= useForm<RegisterFormData>();
+    const {register, watch, handleSubmit, formState:{
+      errors
+    }}= useForm<RegisterFormData>();
     const onSubmit = handleSubmit((data)=>{
 console.log(data)
     })
@@ -20,16 +22,25 @@ console.log(data)
             <label className='text-gray-700 text-sm font-bold flex-1'>
                 First Name
                 <input type="text" className='border rounded w-full py-1 px-2 font-normal' {...register("firstName",{required:"This field is required"})}/>
+                {errors.firstName &&(
+                  <span className='text-red-500'>{errors.firstName.message}</span>
+                )}
             </label>
             <label className='text-gray-700 text-sm font-bold flex-1'>
                 Last Name
                 <input type="text" className='border rounded w-full py-1 px-2 font-normal'  {...register("lastName",{required:"This field is required"})}/>
+                {errors.lastName &&(
+                  <span className='text-red-500'>{errors.lastName.message}</span>
+                )}
             </label>
         </div>
 
         <label className='text-gray-700 text-sm font-bold flex-1'>
                 Email
                 <input type="email" className='border rounded w-full py-1 px-2 font-normal'  {...register("email",{required:"This field is required"})}/>
+                {errors.email &&(
+                  <span className='text-red-500'>{errors.email.message}</span>
+                )}
             </label>
             <label className='text-gray-700 text-sm font-bold flex-1'>
                 Password
@@ -37,6 +48,9 @@ console.log(data)
                     value:6,
                     message:"password must be at least 6 characters"
                 }})}/>
+                 {errors.password &&(
+                  <span className='text-red-500'>{errors.password.message}</span>
+                )}
             </label>
             <label className='text-gray-700 text-sm font-bold flex-1'>
                Confirm Password
@@ -53,7 +67,9 @@ console.log(data)
     },
   })}
 />
-
+{errors.confirmPassword &&(
+                  <span className='text-red-500'>{errors.confirmPassword.message}</span>
+                )}
             </label>
             <span>
                 <button type='submit'
